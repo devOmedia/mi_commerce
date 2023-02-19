@@ -6,10 +6,10 @@ class AppRepository {
   final ConnectionHelper _connectionHelper = ConnectionHelper();
 
   Future<ProductsModel?> getSearchResult(
-      {searchPattern, offsetLimit = 10}) async {
+      {searchPattern, limit = 10}) async {
     try {
       final response = await _connectionHelper.getData(
-          "$baseUrl//search-suggestions/?limit=10&offset=$offsetLimit&search=$searchPattern");
+          "$baseUrl//search-suggestions/?limit=$limit&offset=$limit&search=$searchPattern");
 
       if (response != null) {
         if (response.statusCode == 200) {
