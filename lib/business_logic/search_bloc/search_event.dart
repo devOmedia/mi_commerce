@@ -6,9 +6,11 @@ class SearchProductEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class SearchEvent extends SearchProductEvent {
+  final String searchPattern;
+  final int limit;
 
-class SearchEvent extends SearchProductEvent{}
+  SearchEvent({required this.limit, required this.searchPattern});
+}
 
-class DataLoadedEvent extends SearchProductEvent{}
-
-
+class DataLoadedEvent extends SearchProductEvent {}

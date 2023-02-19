@@ -10,7 +10,7 @@ class SearchProductState extends Equatable {
 
 class LoadingState extends SearchProductState {}
 
-class LoadedState extends SearchProductEvent {
+class LoadedState extends SearchProductState {
   final ProductsModel productsModel;
 
   LoadedState(this.productsModel);
