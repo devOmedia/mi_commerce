@@ -4,6 +4,7 @@ import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
+import 'package:mi_commerce/presentation/utils/constants.dart';
 
 import '../widgets/custom_search_field.dart';
 
@@ -79,10 +80,20 @@ class _SearchScreenState extends State<SearchScreen> {
                                           : 3),
                           itemBuilder: (BuildContext context, int index) {
                             if (state.productsModel.data != null) {
-                              return productCardWidget(
-                                  size,
-                                  state.productsModel.data!.products!
-                                      .results![index]);
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Expanded(
+                                    child: productCardWidget(
+                                        size,
+                                        state.productsModel.data!.products!
+                                            .results![index]),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              );
                             } else {
                               return const Text("Product ase nai");
                             }
@@ -101,10 +112,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget productCardWidget(Size size, Results results) {
     return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
       children: [
         Container(
           margin: const EdgeInsets.only(left: 8, bottom: 8),
-          //height: size.height * 0.30,
+          height: size.height * 0.30,
           // width: size.width * 0.45,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           decoration: BoxDecoration(
@@ -198,6 +210,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (results.stock == 0)
           Positioned(
             right: 0,
+            top: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
@@ -214,9 +227,31 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           )
         else
+          // add to card widget
           Positioned(
-            child: Container(
-              decoration: const BoxDecoration(shape: BoxShape.circle),
+            bottom: 0,
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: size.width * 0.1,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      KColor.addToCard2,
+                      KColor.addToCard1,
+                    ],
+                  ),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           )
       ],
