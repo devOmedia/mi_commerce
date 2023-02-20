@@ -33,7 +33,9 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                CustomSearchFieldWidget(size: size, searchController: _searchController),
+                //search field
+                CustomSearchFieldWidget(
+                    size: size, searchController: _searchController),
               ],
             ),
           ),
@@ -42,5 +44,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-

@@ -18,7 +18,7 @@ class CustomSearchFieldWidget extends StatelessWidget {
       width: size.width,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         color: Colors.white,
       ),
       child: Center(
@@ -26,6 +26,7 @@ class CustomSearchFieldWidget extends StatelessWidget {
           controller: _searchController,
           cursorColor: Colors.black,
           decoration: const InputDecoration(
+            hintText: "কাঙ্ক্ষিত পণ্যটি খুঁজুন",
             border: InputBorder.none,
             suffixIcon: Icon(
               Icons.search_outlined,
