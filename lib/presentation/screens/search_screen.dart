@@ -4,6 +4,7 @@ import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
+import 'package:mi_commerce/presentation/screens/product_details_screen.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
 
 import '../widgets/custom_search_field.dart';
@@ -84,10 +85,21 @@ class _SearchScreenState extends State<SearchScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Expanded(
-                                    child: productCardWidget(
-                                        size,
-                                        state.productsModel.data!.products!
-                                            .results![index]),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ProductDetailsScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: productCardWidget(
+                                          size,
+                                          state.productsModel.data!.products!
+                                              .results![index]),
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 10,
