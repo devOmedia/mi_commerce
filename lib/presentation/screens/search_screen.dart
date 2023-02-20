@@ -45,6 +45,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       searchController: _searchController,
                       onChange: (searchPattern) {},
                     ),
+                    // loading state
+                    if (state is LoadingState)
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      )
                   ],
                 ),
               ),
