@@ -5,12 +5,13 @@ class CustomSearchFieldWidget extends StatelessWidget {
     Key? key,
     required this.size,
     required TextEditingController searchController,
+    required this.onChange,
   })  : _searchController = searchController,
         super(key: key);
 
   final Size size;
   final TextEditingController _searchController;
-
+  final Function(String)? onChange;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +34,7 @@ class CustomSearchFieldWidget extends StatelessWidget {
               color: Color(0xffA7A7A7),
             ),
           ),
-          onChanged: (productPattern) {},
+          onChanged: onChange,
         ),
       ),
     );

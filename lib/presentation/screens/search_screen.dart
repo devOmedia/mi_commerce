@@ -32,9 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return SafeArea(
       child: Scaffold(
         body: BlocConsumer<SearchProductBloc, SearchProductState>(
-          listener: (context, state) {
-            
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return SingleChildScrollView(
               child: Padding(
@@ -43,7 +41,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: [
                     //search field
                     CustomSearchFieldWidget(
-                        size: size, searchController: _searchController),
+                      size: size,
+                      searchController: _searchController,
+                      onChange: (searchPattern) {},
+                    ),
                   ],
                 ),
               ),
