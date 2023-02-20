@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
-import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
 import 'package:mi_commerce/data/app_reposity.dart';
 import 'package:mi_commerce/presentation/screens/search_screen.dart';
 
@@ -27,7 +26,9 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xffE5E5E5),
             primarySwatch: Colors.blue,
           ),
           home: const SearchScreen(),
