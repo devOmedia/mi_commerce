@@ -56,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             );
                       },
                     ),
+                    SizedBox(height: size.height * 0.02),
                     // loading state
                     if (state is LoadingState)
                       const Center(
@@ -98,98 +99,120 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Container productCardWidget(Size size, Results results) {
-    return Container(
-      margin: const EdgeInsets.only(left: 8, bottom: 8),
-      height: size.height * 0.20,
-      width: size.width * 0.40,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-              child: Image(
-            image: NetworkImage(results.image!),
-            alignment: Alignment.center,
-            height: size.height * 0.09,
-            fit: BoxFit.fill,
-          )),
-          //product name and type
-          SizedBox(
-            height: size.height * 0.01,
+  Widget productCardWidget(Size size, Results results) {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 8, bottom: 8),
+          //height: size.height * 0.30,
+          // width: size.width * 0.45,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
           ),
-          DefaultTextStyle(
-            style: TextStyle(
-              fontFamily: "poppins",
-              color: const Color(0xff323232),
-              fontWeight: FontWeight.w500,
-              fontSize: size.width * 0.03,
-            ),
-            child: Text(
-              results.productName!,
-            ),
-          ),
-          //poduct price
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (results.charge!.discountCharge != null)
-                priceTextWidget(
-                    text: "ক্রয় ",
-                    size: size,
-                    color: const Color(0xffda2079),
-                    price: results.charge!.discountCharge!)
-              else
-                priceTextWidget(
-                    text: "ক্রয় ",
-                    size: size,
-                    color: const Color(0xffda2079),
-                    price: results.charge!.currentCharge!),
-              Text(
-                "৳${results.charge!.currentCharge!}",
+              Center(
+                  child: Image(
+                image: NetworkImage(results.image!),
+                alignment: Alignment.center,
+                height: size.height * 0.09,
+                fit: BoxFit.fill,
+              )),
+              //product name and type
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              DefaultTextStyle(
                 style: TextStyle(
-                    color: const Color(0xffda2079),
+                  fontFamily: "poppins",
+                  color: const Color(0xff323232),
+                  fontWeight: FontWeight.w500,
+                  fontSize: size.width * 0.03,
+                ),
+                child: Text(
+                  results.productName!,
+                ),
+              ),
+              //poduct price
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (results.charge!.discountCharge != null)
+                    priceTextWidget(
+                        text: "ক্রয় ",
+                        size: size,
+                        color: const Color(0xffda2079),
+                        price: results.charge!.discountCharge!)
+                  else
+                    priceTextWidget(
+                        text: "ক্রয় ",
+                        size: size,
+                        color: const Color(0xffda2079),
+                        price: results.charge!.currentCharge!),
+                  Text(
+                    "৳${results.charge!.currentCharge!}",
+                    style: TextStyle(
+                        color: const Color(0xffda2079),
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.lineThrough,
+                        fontSize: size.width * 0.035),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: priceTextWidget(
+                          text: "বিক্রয়",
+                          size: size,
+                          color: const Color(0xffda2079),
+                          price: results.charge!.sellingPrice!)),
+                  FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: priceTextWidget(
+                          text: "লাভ",
+                          size: size,
+                          color: const Color(0xffda2079),
+                          price: results.charge!.profit!)),
+                  // Text(
+                  //   '৳ 20.00',
+                  //   style: TextStyle(
+                  //       color: const Color(0xffda2079),
+                  //       fontWeight: FontWeight.w600,
+                  //       decoration: TextDecoration.lineThrough,
+                  //       fontSize: size.width * 0.035),
+                  // )
+                ],
+              ),
+            ],
+          ),
+        ),
+        //===========================>> out of stock container
+        if (results.stock == 0)
+          Positioned(
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color(0xffFFCCCC),
+                ),
+                child: const Text(
+                  "স্টকে নেই",
+                  style: TextStyle(
+                    color: Color(0xffC62828),
                     fontWeight: FontWeight.w600,
-                    decoration: TextDecoration.lineThrough,
-                    fontSize: size.width * 0.035),
-              )
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: priceTextWidget(
-                      text: "বিক্রয়",
-                      size: size,
-                      color: const Color(0xffda2079),
-                      price: results.charge!.sellingPrice!)),
-              FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: priceTextWidget(
-                      text: "লাভ",
-                      size: size,
-                      color: const Color(0xffda2079),
-                      price: results.charge!.profit!)),
-              // Text(
-              //   '৳ 20.00',
-              //   style: TextStyle(
-              //       color: const Color(0xffda2079),
-              //       fontWeight: FontWeight.w600,
-              //       decoration: TextDecoration.lineThrough,
-              //       fontSize: size.width * 0.035),
-              // )
-            ],
-          ),
-        ],
-      ),
+                  ),
+                ),
+              ))
+      ],
     );
   }
 
