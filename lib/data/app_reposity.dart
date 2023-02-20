@@ -5,11 +5,11 @@ class AppRepository {
   final baseUrl = "https://panel.supplyline.network/api";
   final ConnectionHelper _connectionHelper = ConnectionHelper();
 
-  Future<ProductsModel?> getSearchResult(
-      {searchPattern, limit = 10}) async {
+  Future<ProductsModel?> getSearchResult({searchPattern, limit = 0}) async {
+    limit += 10;
     try {
       final response = await _connectionHelper.getData(
-          "$baseUrl//search-suggestions/?limit=$limit&offset=$limit&search=$searchPattern");
+          "$baseUrl/product/search-suggestions/?limit=$limit&offset=$limit&search=$searchPattern");
 
       if (response != null) {
         if (response.statusCode == 200) {

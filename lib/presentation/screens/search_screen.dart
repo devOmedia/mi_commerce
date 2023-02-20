@@ -49,9 +49,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       size: size,
                       searchController: _searchController,
                       onChange: (searchPattern) {
+                        print(searchPattern);
                         context.read<SearchProductBloc>().add(
                               SearchEvent(
-                                  limit: 4, searchPattern: searchPattern),
+                                  limit: 0, searchPattern: searchPattern),
                             );
                       },
                     ),
@@ -67,7 +68,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: size.height * 0.85,
                         child: GridView.builder(
                           controller: _controller,
-                          itemCount: state.productsModel.data!.products!.count,
+                          itemCount: state
+                              .productsModel.data!.products!.results!.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount:
@@ -76,13 +78,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                           : 3),
                           itemBuilder: (BuildContext context, int index) {
                             if (state.productsModel.data != null) {
-                              print(state.productsModel.data!.products!.count);
                               return productCardWidget(
                                   size,
                                   state.productsModel.data!.products!
                                       .results![index]);
                             } else {
-                              return const SizedBox();
+                              return const Text("Product ase nai");
                             }
                           },
                         ),
