@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mi_commerce/data/models/products_model.dart';
 import 'package:mi_commerce/presentation/widgets/custom_search_field.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productData});
+  final Results productData;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
