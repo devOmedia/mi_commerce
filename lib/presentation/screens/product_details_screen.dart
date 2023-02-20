@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
@@ -59,16 +60,44 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               //=======================================>> product image
               SizedBox(height: size.height * 0.02),
               Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: size.height * 0.3,
-                  width: size.width * 0.4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                  ),
-                  child: Image.network(data.image!),
-                ),
+                child: CarouselSlider(
+                    options: CarouselOptions(
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      autoPlay: true,
+                    ),
+                    items: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.3,
+                        width: size.width * 0.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                        ),
+                        child: Image.network(data.image!),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.3,
+                        width: size.width * 0.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                        ),
+                        child: Image.network(data.image!),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.3,
+                        width: size.width * 0.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                        ),
+                        child: Image.network(data.image!),
+                      ),
+                    ]),
               ),
               //======================================>> product details.
               SizedBox(height: size.height * 0.02),
