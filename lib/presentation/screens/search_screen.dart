@@ -197,21 +197,28 @@ class _SearchScreenState extends State<SearchScreen> {
         //===========================>> out of stock container
         if (results.stock == 0)
           Positioned(
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xffFFCCCC),
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xffFFCCCC),
+              ),
+              child: const Text(
+                "স্টকে নেই",
+                style: TextStyle(
+                  color: Color(0xffC62828),
+                  fontWeight: FontWeight.w600,
                 ),
-                child: const Text(
-                  "স্টকে নেই",
-                  style: TextStyle(
-                    color: Color(0xffC62828),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ))
+              ),
+            ),
+          )
+        else
+          Positioned(
+            child: Container(
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+            ),
+          )
       ],
     );
   }
