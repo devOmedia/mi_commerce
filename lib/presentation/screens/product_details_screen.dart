@@ -44,47 +44,64 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //===================================>> search field
-            CustomSearchFieldWidget(
-              searchController: _searchController,
-              size: size,
-              onChange: (value) {},
-            ),
-            //=======================================>> product image
-            SizedBox(height: size.height * 0.02),
-            Center(
-              child: Container(
-                alignment: Alignment.center,
-                height: size.height * 0.3,
-                width: size.width * 0.4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
-                ),
-                child: Image.network(data.image!),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //===================================>> search field
+              CustomSearchFieldWidget(
+                searchController: _searchController,
+                size: size,
+                onChange: (value) {},
               ),
-            ),
-            //======================================>> product details.
-            SizedBox(height: size.height * 0.02),
-            //product name
-            Text(
-              data.productName!,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: KColor.black),
-            ),
-            // brand name
-            brandInfoWidget(data, size),
-            SizedBox(height: size.height * 0.02),
-            //product pricing card widget
-            poductPricingCard(size, data)
-          ],
+              //=======================================>> product image
+              SizedBox(height: size.height * 0.02),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: size.height * 0.3,
+                  width: size.width * 0.4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                  ),
+                  child: Image.network(data.image!),
+                ),
+              ),
+              //======================================>> product details.
+              SizedBox(height: size.height * 0.02),
+              //product name
+              Text(
+                data.productName!,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: KColor.black),
+              ),
+              // brand name
+              brandInfoWidget(data, size),
+              SizedBox(height: size.height * 0.02),
+              //product pricing card widget
+              poductPricingCard(size, data),
+              SizedBox(height: size.height * 0.02),
+              Text(
+                "বিস্তারিত",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(color: const Color(0xff323232)),
+              ),
+              Text(
+                data.description!,
+                style: const TextStyle(
+                  color: Color(0XFF646464),
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
