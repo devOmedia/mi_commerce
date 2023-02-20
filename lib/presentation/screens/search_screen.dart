@@ -50,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       size: size,
                       searchController: _searchController,
                       onChange: (searchPattern) {
-                        print(searchPattern);
+                        //calling api as per search pattern.
                         context.read<SearchProductBloc>().add(
                               SearchEvent(
                                   limit: 0, searchPattern: searchPattern),
