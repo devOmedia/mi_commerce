@@ -27,6 +27,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final data = widget.productData;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -46,11 +47,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            //===================================>> search field
             CustomSearchFieldWidget(
               searchController: _searchController,
               size: size,
               onChange: (value) {},
             ),
+            //=======================================>> product image
+            SizedBox(height: size.height * 0.02),
+            Container(
+              height: size.height * 0.35,
+              width: size.width * 0.45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.white,
+              ),
+              child: Image.network(data.image!),
+            )
           ],
         ),
       ),
