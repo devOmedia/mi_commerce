@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
-import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
+import 'package:mi_commerce/presentation/widgets/custom_search_field.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
@@ -10,8 +9,22 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  late TextEditingController _searchController;
+  @override
+  void initState() {
+    _searchController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -30,8 +43,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: const [
-            
+          children: [
+            CustomSearchFieldWidget(
+              searchController: _searchController,
+              size: size,
+              onChange: (value) {},
+            ),
           ],
         ),
       ),
