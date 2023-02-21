@@ -69,52 +69,74 @@ class _SearchScreenState extends State<SearchScreen> {
                     if (state is LoadedState)
                       SizedBox(
                         height: size.height * 0.85,
-                        child: GridView.builder(
-                          controller: _controller,
-                          itemCount: state
-                              .productsModel.data!.products!.results!.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount:
-                                      (orientation == Orientation.portrait)
-                                          ? 2
-                                          : 3),
-                          itemBuilder: (BuildContext context, int index) {
-                            if (state.productsModel.data != null) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen(
-                                                    productData: state
-                                                        .productsModel
-                                                        .data!
-                                                        .products!
-                                                        .results![index]),
-                                          ),
-                                        );
-                                      },
-                                      child: productCardWidget(
-                                          size,
-                                          state.productsModel.data!.products!
-                                              .results![index]),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  )
-                                ],
-                              );
-                            } else {
-                              return const Text("Product ase nai");
+                        child: NotificationListener<ScrollNotification>(
+                          onNotification: (notification) {
+                            if (notification.metrics.pixels ==
+                                notification.metrics.maxScrollExtent) {
+                              context.read<SearchProductBloc>().add(
+                                    SearchEvent(
+                                        limit: 4,
+                                        searchPattern: _searchController.text),
+                                  );
                             }
+                            return true;
                           },
+                          child: GridView.builder(
+                            controller: _controller,
+                            itemCount: state
+                                .productsModel.data!.products!.results!.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        (orientation == Orientation.portrait)
+                                            ? 2
+                                            : 3),
+                            itemBuilder: (BuildContext context, int index) {
+                              if (state.productsModel.data != null) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductDetailsScreen(
+                                                      productData: state
+                                                          .productsModel
+                                                          .data!
+                                                          .products!
+                                                          .results![index]),
+                                            ),
+                                          );
+                                        },
+                                        //check if result has any data at current index
+                                        child: state
+                                                    .productsModel
+                                                    .data!
+                                                    .products!
+                                                    // ignore: unnecessary_null_comparison
+                                                    .results![index] !=
+                                                null
+                                            ? productCardWidget(
+                                                size,
+                                                state.productsModel.data!
+                                                    .products!.results![index])
+                                            : Container(),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return const Text("Product ase nai");
+                              }
+                            },
+                          ),
                         ),
                       )
                   ],

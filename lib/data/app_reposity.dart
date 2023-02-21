@@ -4,12 +4,13 @@ import 'package:mi_commerce/data/models/products_model.dart';
 class AppRepository {
   final baseUrl = "https://panel.supplyline.network/api";
   final ConnectionHelper _connectionHelper = ConnectionHelper();
+  int offsetLimit = 10;
 
-  Future<ProductsModel?> getSearchResult({searchPattern, limit = 0}) async {
-    limit += 10;
+  Future<ProductsModel?> getSearchResult({searchPattern, limit}) async {
+    offsetLimit += limit as int;
     try {
       final response = await _connectionHelper.getData(
-          "$baseUrl/product/search-suggestions/?limit=$limit&offset=$limit&search=$searchPattern");
+          "$baseUrl/product/search-suggestions/?limit=$offsetLimit&offset=$offsetLimit&search=$searchPattern");
 
       if (response != null) {
         if (response.statusCode == 200) {
