@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
+import 'package:mi_commerce/data/app_reposity.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
 import 'package:mi_commerce/presentation/screens/product_details_screen.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
@@ -31,11 +32,18 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchController.dispose();
     super.dispose();
   }
+//before research reset the offset value.
+  _resetOfsetLimit() {
+    if (_searchController.text.isEmpty) {
+      AppRepository.offsetLimit = 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final orientation = MediaQuery.of(context).orientation;
+    _resetOfsetLimit();
     return SafeArea(
       child: Scaffold(
         body: BlocConsumer<SearchProductBloc, SearchProductState>(
@@ -224,14 +232,14 @@ class _SearchScreenState extends State<SearchScreen> {
                           text: "বিক্রয়",
                           size: size,
                           color: const Color(0xffda2079),
-                          price: results.charge!.sellingPrice!)),
+                          price: results.charge!.sellingPrice ?? 0.0)),
                   FittedBox(
                       fit: BoxFit.fitWidth,
                       child: priceTextWidget(
                           text: "লাভ",
                           size: size,
                           color: const Color(0xffda2079),
-                          price: results.charge!.profit!)),
+                          price: results.charge!.profit ?? 0.0)),
                   // Text(
                   //   '৳ 20.00',
                   //   style: TextStyle(
