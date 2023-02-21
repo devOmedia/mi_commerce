@@ -32,6 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchController.dispose();
     super.dispose();
   }
+
 //before research reset the offset value.
   _resetOfsetLimit() {
     if (_searchController.text.isEmpty) {
@@ -275,29 +276,79 @@ class _SearchScreenState extends State<SearchScreen> {
           )
         else
           // add to card widget
+          // Positioned(
+          //   bottom: 0,
+          //   child: GestureDetector(
+          //     onTap: () {},
+          //     child: Container(
+          //       width: size.width * 0.1,
+          //       decoration: const BoxDecoration(
+          //         shape: BoxShape.circle,
+          //         gradient: LinearGradient(
+          //           begin: Alignment.centerLeft,
+          //           end: Alignment.centerRight,
+          //           colors: [
+          //             KColor.addToCard2,
+          //             KColor.addToCard1,
+          //           ],
+          //         ),
+          //       ),
+          //       child: const Center(
+          //         child: Icon(
+          //           Icons.add,
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // )
           Positioned(
             bottom: 0,
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: size.width * 0.1,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      KColor.addToCard2,
-                      KColor.addToCard1,
-                    ],
+            child: Container(
+              height: size.height * 0.04,
+              width: size.width * 0.25,
+              decoration: BoxDecoration(
+                color: KColor.lightPink,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: KColor.red,
+                      ),
+                      child: const Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
+                  const Flexible(
+                    child: Text(
+                      "17 পিস",
+                      style: TextStyle(
+                          color: KColor.red, fontWeight: FontWeight.w500),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: KColor.addToCard2,
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           )
