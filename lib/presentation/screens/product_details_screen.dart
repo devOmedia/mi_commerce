@@ -4,16 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mi_commerce/business_logic/product_details/product_details_event.dart';
 import 'package:mi_commerce/business_logic/product_details/product_details_state.dart';
 import 'package:mi_commerce/data/models/product_details.dart';
-import 'package:mi_commerce/data/models/products_model.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
 import 'package:mi_commerce/presentation/widgets/custom_search_field.dart';
 
 import '../../business_logic/product_details/product_details_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen(
-      {super.key, required this.productData, required this.slug});
-  final Results productData;
+  const ProductDetailsScreen({super.key, required this.slug});
+
   final String slug;
 
   @override
@@ -41,7 +39,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final data = widget.productData;
 
     return Scaffold(
       appBar: AppBar(
@@ -75,10 +72,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     size: size,
                     onChange: (value) {},
                   ),
+                  //loading state
                   if (state is ProductDetailsLoadingState)
                     const Center(
                       child: CircularProgressIndicator(),
                     ),
+                  //loaded state
                   if (state is ProductDetailsLoadedState)
                     productDetailsWidget(size, state.detailsData, context)
                 ],

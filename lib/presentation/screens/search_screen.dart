@@ -110,28 +110,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          context
-                                              .read<ProductDetailsBloc>()
-                                              .add(
-                                                GetProductDetails(
-                                                    slug: state
-                                                        .productsModel
-                                                        .data!
-                                                        .products!
-                                                        .results![index]
-                                                        .slug!),
-                                              );
 
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetailsScreen(
-                                                productData: state
-                                                    .productsModel
-                                                    .data!
-                                                    .products!
-                                                    .results![index],
+                                                
                                                 slug: state
                                                     .productsModel
                                                     .data!
