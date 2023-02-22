@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mi_commerce/business_logic/product_details/product_details_bloc.dart';
+import 'package:mi_commerce/business_logic/product_details/product_details_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
 import 'package:mi_commerce/data/app_reposity.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
-import 'package:mi_commerce/presentation/screens/product_details_screen.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
 
 import '../widgets/custom_search_field.dart';
@@ -108,18 +109,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductDetailsScreen(
-                                                      productData: state
-                                                          .productsModel
-                                                          .data!
-                                                          .products!
-                                                          .results![index]),
-                                            ),
-                                          );
+                                          context
+                                              .read<ProductDetailsBloc>()
+                                              .add(
+                                                GetProductDetails(
+                                                    slug: state
+                                                        .productsModel
+                                                        .data!
+                                                        .products!
+                                                        .results![index]
+                                                        .slug!),
+                                              );
+
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         ProductDetailsScreen(
+                                          //             productData: state
+                                          //                 .productsModel
+                                          //                 .data!
+                                          //                 .products!
+                                          //                 .results![index]),
+                                          //   ),
+                                          // );
                                         },
                                         //check if result has any data at current index
                                         child: state

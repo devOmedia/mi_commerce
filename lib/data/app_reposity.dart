@@ -26,7 +26,7 @@ class AppRepository {
   }
 
 //get the product details
-  getProductDetails(String slug) async {
+  Future<ProductDetailsModel?> getProductDetails(String slug) async {
     try {
       final response =
           await _connectionHelper.getData("$baseUrl/product-details/$slug/");
@@ -39,5 +39,6 @@ class AppRepository {
     } catch (e) {
       Exception(e);
     }
+    return null;
   }
 }
