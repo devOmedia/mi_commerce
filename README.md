@@ -1,16 +1,18 @@
 # mi_commerce
 
-A new Flutter project.
+A part of feature of an e-commerce app
+Feature of this app
 
-## Getting Started
+1. Search product from api
 
-This project is a starting point for a Flutter application.
+2. Pagination was implemented as the list contains infinite data.
 
-A few resources to get you started if this is your first Flutter project:
+3. View product details info on different api call
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Used tools: BLoC, Dio, 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![product list](https://drive.google.com/file/d/1va-SaK9tT8MNNXIbYmlUyremync50S5w/view?usp=sharing)
+
+![product list1](https://drive.google.com/file/d/1cE_zTpsZiqM70qwVbC_ithHklXI7-zmg/view?usp=sharing)
+
+![product details](https://drive.google.com/file/d/1cE_zTpsZiqM70qwVbC_ithHklXI7-zmg/view?usp=)
