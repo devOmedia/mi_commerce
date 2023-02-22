@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mi_commerce/business_logic/product_details/product_details_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/data/app_reposity.dart';
 import 'package:mi_commerce/presentation/screens/search_screen.dart';
@@ -22,7 +23,12 @@ class MyApp extends StatelessWidget {
             create: (context) => SearchProductBloc(
               RepositoryProvider.of<AppRepository>(context),
             ),
-          )
+          ),
+          BlocProvider<ProductDetailsBloc>(
+            create: (context) => ProductDetailsBloc(
+              repository: RepositoryProvider.of<AppRepository>(context),
+            ),
+          ),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
