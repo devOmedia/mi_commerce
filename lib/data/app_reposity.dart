@@ -1,4 +1,5 @@
 import 'package:mi_commerce/data/connection_helper.dart';
+import 'package:mi_commerce/data/models/product_details.dart';
 import 'package:mi_commerce/data/models/products_model.dart';
 
 class AppRepository {
@@ -21,6 +22,22 @@ class AppRepository {
     } catch (e) {
       Exception(e);
       return null;
+    }
+  }
+
+//get the product details
+  getProductDetails(String slug) async {
+    try {
+      final response =
+          await _connectionHelper.getData("$baseUrl/product-details/$slug/");
+
+      if (response != null) {
+        if (response.statusCode == 200) {
+          return ProductDetailsModel.fromJson(response.data);
+        }
+      }
+    } catch (e) {
+      Exception(e);
     }
   }
 }
