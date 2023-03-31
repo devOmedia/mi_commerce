@@ -1,18 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mi_commerce/business_logic/product_details/product_details_event.dart';
 import 'package:mi_commerce/business_logic/product_details/product_details_state.dart';
-import 'package:mi_commerce/data/models/product_details.dart';
+import 'package:mi_commerce/data/models/products_model.dart';
 import 'package:mi_commerce/presentation/utils/constants.dart';
-import 'package:mi_commerce/presentation/widgets/custom_search_field.dart';
 
 import '../../business_logic/product_details/product_details_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key, required this.slug});
+  const ProductDetailsScreen({super.key, required this.data});
 
-  final String slug;
+  final Results data;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -24,9 +22,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void initState() {
     _searchController = TextEditingController();
     //get product details
-    context
-        .read<ProductDetailsBloc>()
-        .add(GetProductDetails(slug: widget.slug));
+    // context
+    //     .read<ProductDetailsBloc>()
+    //     .add(GetProductDetails(slug: widget.slug));
     super.initState();
   }
 
@@ -67,19 +65,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //===================================>> search field
-                  CustomSearchFieldWidget(
-                    searchController: _searchController,
-                    size: size,
-                    onChange: (value) {},
-                  ),
+                  // CustomSearchFieldWidget(
+                  //   searchController: _searchController,
+                  //   size: size,
+                  //   onChange: (value) {},
+                  // ),
                   //loading state
-                  if (state is ProductDetailsLoadingState)
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  //loaded state
-                  if (state is ProductDetailsLoadedState)
-                    productDetailsWidget(size, state.detailsData, context)
+                  // if (state is ProductDetailsLoadingState)
+                  //   const Center(
+                  //     child: CircularProgressIndicator(),
+                  //   ),
+                  // //loaded state
+                  // if (state is ProductDetailsLoadedState)
+                  productDetailsWidget(size, widget.data, context)
                 ],
               ),
             ),
@@ -89,8 +87,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Column productDetailsWidget(
-      Size size, ProductDetailsModel data, BuildContext context) {
+  Column productDetailsWidget(Size size, Results data, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -112,7 +109,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,
                   ),
-                  child: Image.network(data.data!.image!),
+                  child: Image.network(data.image!),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -122,7 +119,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,
                   ),
-                  child: Image.network(data.data!.image!),
+                  child: Image.network(data.image!),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -132,7 +129,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,
                   ),
-                  child: Image.network(data.data!.image!),
+                  child: Image.network(data.image!),
                 ),
               ]),
         ),
@@ -140,10 +137,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         SizedBox(height: size.height * 0.02),
         //product name
         Text(
-          data.data!.productName!,
+          data.productName!,
           style: Theme.of(context)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(color: KColor.black),
         ),
         // brand name
@@ -156,11 +153,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           "বিস্তারিত",
           style: Theme.of(context)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(color: const Color(0xff323232)),
         ),
         Text(
-          data.data!.description!,
+          data.description!,
           style: const TextStyle(
             color: Color(0XFF646464),
             fontWeight: FontWeight.w400,
@@ -170,7 +167,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container poductPricingCard(Size size, ProductDetailsModel data) {
+  Container poductPricingCard(Size size, Results data) {
     return Container(
       padding: const EdgeInsets.all(16),
       height: size.height * 0.2,
@@ -195,7 +192,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 const Text(
                   "ক্রয়মূল্যঃ",
                 ),
-                Text(data.data!.charge!.currentCharge.toString())
+                Text(data.charge!.currentCharge.toString())
               ],
             ),
           ),
@@ -212,7 +209,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 const Text(
                   "বিক্রয়মূল্যঃ",
                 ),
-                Text(data.data!.charge!.sellingPrice.toString())
+                Text(data.charge!.sellingPrice.toString())
               ],
             ),
           ),
@@ -234,7 +231,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 const Text(
                   "লাভঃ",
                 ),
-                Text(data.data!.charge!.profit.toString())
+                Text(data.charge!.profit.toString())
               ],
             ),
           ),
@@ -243,7 +240,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Row brandInfoWidget(ProductDetailsModel data, Size size) {
+  Row brandInfoWidget(Results data, Size size) {
     return Row(
       children: [
         Text.rich(
@@ -255,7 +252,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     TextStyle(color: KColor.grey, fontWeight: FontWeight.w500),
               ),
               TextSpan(
-                text: data.data!.brand!.name,
+                text: data.brand!.name,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: size.width * 0.04,
@@ -279,7 +276,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     TextStyle(color: KColor.grey, fontWeight: FontWeight.w500),
               ),
               TextSpan(
-                text: data.data!.seller,
+                text: data.seller,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: size.width * 0.04,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mi_commerce/business_logic/product_details/product_details_bloc.dart';
-import 'package:mi_commerce/business_logic/product_details/product_details_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_bloc.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_event.dart';
 import 'package:mi_commerce/business_logic/search_bloc/search_state.dart';
@@ -110,19 +108,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetailsScreen(
-                                                
-                                                slug: state
-                                                    .productsModel
-                                                    .data!
-                                                    .products!
-                                                    .results![index]
-                                                    .slug!,
+                                                data: state.productsModel.data!
+                                                    .products!.results![index],
                                               ),
                                             ),
                                           );
